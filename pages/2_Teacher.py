@@ -8,14 +8,14 @@ from pathlib import Path
 
 import streamlit as st
 
-from utils.auth import require_teacher, render_nav, set_role_from_query
+from utils.auth import render_nav, set_role_from_query
 from utils.case_generator import generate_random_cases_from_base
 from utils.file_extraction import (
     extract_text_from_uploaded_file,
     extract_general_description_from_uploaded_file,
 )
 from utils.reference_loader import load_builtin_guides, merge_references
-from utils.storage import load_cases, save_cases, load_server_config, save_server_config, get_student_progress
+from utils.storage import load_cases, save_cases, get_student_progress
 
 st.title("Teacher Panel")
 st.write("Create or update a course with randomized scenarios.")
@@ -42,24 +42,16 @@ def _init_state() -> None:
 set_role_from_query()
 _init_state()
 render_nav("teacher")
-server_config = load_server_config()
-if not server_config.get("admin_password"):
-    st.subheader("Create Admin Password")
-    with st.form("create_admin_password"):
-        new_pass = st.text_input("New Admin Password", type="password")
-        confirm = st.text_input("Confirm Password", type="password")
-        submitted = st.form_submit_button("Save Password")
-        if submitted:
-            if not new_pass or new_pass != confirm:
-                st.error("Passwords do not match.")
-            else:
-                server_config["admin_password"] = new_pass
-                save_server_config(server_config)
-                st.success("Admin password created.")
-                st.rerun()
+st.session_state.setdefault("authenticated", False)
+if not st.session_state["authenticated"]:
+    passcode_input = st.text_input("Enter teacher passcode", type="password")
+    if st.button("Access"):
+        if passcode_input == st.secrets["TEACHER_PASSCODE"]:
+            st.session_state["authenticated"] = True
+            st.rerun()
+        else:
+            st.error("Incorrect passcode.")
     st.stop()
-
-require_teacher()
 
 course_name = st.text_input("Course name", st.session_state.get("course_name", ""))
 if course_name:
