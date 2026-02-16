@@ -13,6 +13,12 @@ DATA_DIR = BASE_DIR / "data"
 CASES_PATH = DATA_DIR / "cases.json"
 STUDENT_RECORDS_PATH = DATA_DIR / "student_records.json"
 SERVER_CONFIG_PATH = DATA_DIR / "server_config.json"
+AZURE_CONFIG_KEYS = {
+    "azure_api_key",
+    "azure_endpoint",
+    "azure_deployment",
+    "azure_api_version",
+}
 
 
 def _ensure_data_files() -> None:
@@ -71,15 +77,22 @@ def save_student_records(records: list[dict[str, Any]]) -> None:
 
 
 def load_server_config() -> dict[str, Any]:
-    """Load server-side configuration such as admin password and Azure settings."""
+    """Load server-side configuration (admin/non-Azure settings only)."""
 
-    return _load_json(SERVER_CONFIG_PATH, {})
+    config = _load_json(SERVER_CONFIG_PATH, {})
+    if not isinstance(config, dict):
+        return {}
+    return {k: v for k, v in config.items() if k not in AZURE_CONFIG_KEYS}
 
 
 def save_server_config(data: dict[str, Any]) -> None:
-    """Persist server-side configuration."""
+    """Persist server-side configuration (admin/non-Azure settings only)."""
 
-    _save_json(SERVER_CONFIG_PATH, data)
+    if not isinstance(data, dict):
+        _save_json(SERVER_CONFIG_PATH, {})
+        return
+    sanitized = {k: v for k, v in data.items() if k not in AZURE_CONFIG_KEYS}
+    _save_json(SERVER_CONFIG_PATH, sanitized)
 
 
 def get_student_progress() -> pd.DataFrame:

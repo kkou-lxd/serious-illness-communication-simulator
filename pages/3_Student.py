@@ -5,7 +5,7 @@ import random
 import streamlit as st
 
 from utils.auth import render_nav, set_role_from_query
-from utils.storage import load_cases, load_server_config
+from utils.storage import load_cases
 
 st.title("Student Home")
 st.write("Join your course, pick a scenario, and start the simulation.")
@@ -40,13 +40,6 @@ if st.button("Load Course"):
         st.error("Course code not found.")
     else:
         st.session_state["student_course_data"] = course_data
-        server_config = load_server_config()
-        st.session_state["azure_config"] = {
-            "azure_api_key": server_config.get("azure_api_key"),
-            "azure_endpoint": server_config.get("azure_endpoint"),
-            "azure_deployment": server_config.get("azure_deployment"),
-            "azure_api_version": server_config.get("azure_api_version"),
-        }
         st.success(f"Loaded {course_data.get('course_name', 'Course')}")
 
 course_data = st.session_state.get("student_course_data")

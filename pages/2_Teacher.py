@@ -61,23 +61,6 @@ if not server_config.get("admin_password"):
 
 require_teacher()
 
-with st.sidebar.expander("⚙️ Class Settings", expanded=False):
-    azure_key = st.text_input("Azure API Key", value=server_config.get("azure_api_key", ""), type="password")
-    azure_endpoint = st.text_input("Azure Endpoint", value=server_config.get("azure_endpoint", ""))
-    azure_deployment = st.text_input("Azure Deployment Name", value=server_config.get("azure_deployment", ""))
-    azure_version = st.text_input("Azure API Version", value=server_config.get("azure_api_version", ""))
-    if st.button("Save Azure Settings"):
-        server_config.update(
-            {
-                "azure_api_key": azure_key,
-                "azure_endpoint": azure_endpoint,
-                "azure_deployment": azure_deployment,
-                "azure_api_version": azure_version,
-            }
-        )
-        save_server_config(server_config)
-        st.success("Azure settings saved.")
-
 course_name = st.text_input("Course name", st.session_state.get("course_name", ""))
 if course_name:
     st.session_state["course_name"] = course_name
@@ -194,15 +177,6 @@ if st.button("Generate Random Scenarios", use_container_width=True):
         st.session_state.get("reference_library", []),
     )
     full_reference_context = "\n\n".join(filter(None, [combined_references, reference_context]))
-    azure_config = {
-        "azure_api_key": server_config.get("azure_api_key"),
-        "azure_endpoint": server_config.get("azure_endpoint"),
-        "azure_deployment": server_config.get("azure_deployment"),
-        "azure_api_version": server_config.get("azure_api_version"),
-    }
-    if not all(azure_config.values()):
-        st.warning("Azure OpenAI is not configured. Please set it in Class Settings.")
-        st.stop()
     if not base_standard.strip():
         st.error("Please provide a base case (upload or paste).")
     else:
@@ -213,7 +187,6 @@ if st.button("Generate Random Scenarios", use_container_width=True):
                     n_cases=int(n_cases),
                     course_code=st.session_state["course_code"],
                     reference_context=full_reference_context,
-                    azure_config=azure_config,
                 )
                 for c in cases:
                     c.pop("difficulty", None)

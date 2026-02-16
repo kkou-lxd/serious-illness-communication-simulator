@@ -104,6 +104,7 @@ celerybeat.pid
 # Environments (DO NOT COMMIT SECRETS)
 .env
 .envrc
+.streamlit/secrets.toml
 .venv
 env/
 venv/
