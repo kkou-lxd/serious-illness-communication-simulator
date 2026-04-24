@@ -1,19 +1,863 @@
-body {
-  font-family: "Helvetica", sans-serif;
+/* =============================================================
+   ClinComm Design System — styles.css
+   Inject via: st.markdown(f"[style tag injection]", unsafe_allow_html=True)
+   Already wired in app.py via _inject_styles()
+   ============================================================= */
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+
+/* ── Design tokens ────────────────────────────────────────── */
+:root {
+  --cc-bg:          #F0EEF8;
+  --cc-surface:     #FFFFFF;
+  --cc-border:      #E0DCF0;
+  --cc-border-mid:  #D6D1F0;
+  --cc-border-soft: #EEEBFB;
+
+  --cc-purple-900:  #2D2660;
+  --cc-purple-700:  #4A3EC2;
+  --cc-purple-600:  #5B4FCF;
+  --cc-purple-400:  #7B6FE8;
+  --cc-purple-200:  #C5BFEE;
+  --cc-purple-100:  #EDE9FB;
+  --cc-purple-50:   #F7F5FD;
+
+  --cc-green-700:   #1A7A4A;
+  --cc-green-100:   #E6F4EE;
+
+  --cc-amber-700:   #A0660A;
+  --cc-amber-100:   #FEF3E2;
+
+  --cc-muted:       #8882B4;
+  --cc-muted-2:     #9B95C8;
+  --cc-muted-3:     #A09BC4;
+  --cc-muted-4:     #B0ABDA;
+
+  --cc-text-body:   #3D3A52;
+
+  --cc-radius-sm:   6px;
+  --cc-radius-md:   10px;
+  --cc-radius-lg:   14px;
+
+  --cc-font-sans:   'DM Sans', sans-serif;
+  --cc-font-serif:  'DM Serif Display', serif;
 }
 
+/* ── Global reset ─────────────────────────────────────────── */
+html, body, [data-testid="stAppViewContainer"], .stApp {
+  font-family: var(--cc-font-sans) !important;
+  background-color: var(--cc-bg) !important;
+}
+
+/* ── Main content block ───────────────────────────────────── */
+.main .block-container {
+  padding: 1.5rem 1.75rem 3rem !important;
+  max-width: 860px !important;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────── */
+[data-testid="stSidebar"] {
+  background-color: var(--cc-surface) !important;
+  border-right: 0.5px solid var(--cc-border) !important;
+}
+
+[data-testid="stSidebar"] .block-container {
+  padding: 1.25rem 0.75rem !important;
+}
+
+/* Sidebar nav links */
+[data-testid="stSidebarNavLink"] {
+  border-radius: var(--cc-radius-sm) !important;
+  font-family: var(--cc-font-sans) !important;
+  font-size: 13px !important;
+  color: var(--cc-muted) !important;
+  padding: 7px 10px !important;
+}
+
+[data-testid="stSidebarNavLink"]:hover {
+  background-color: var(--cc-purple-50) !important;
+  color: var(--cc-purple-700) !important;
+}
+
+[data-testid="stSidebarNavLink"][aria-current="page"] {
+  background-color: var(--cc-purple-100) !important;
+  color: var(--cc-purple-700) !important;
+  font-weight: 500 !important;
+}
+
+/* ── Typography ───────────────────────────────────────────── */
+h1, [data-testid="stHeadingWithActionElements"] h1 {
+  font-family: var(--cc-font-serif) !important;
+  font-size: 22px !important;
+  color: var(--cc-purple-900) !important;
+  font-weight: 400 !important;
+  margin-bottom: 2px !important;
+  line-height: 1.25 !important;
+}
+
+h2 {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: var(--cc-purple-900) !important;
+  margin-top: 0.25rem !important;
+}
+
+h3 {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--cc-purple-900) !important;
+}
+
+p, li, .stMarkdown p {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 13.5px !important;
+  color: var(--cc-text-body) !important;
+  line-height: 1.65 !important;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.stButton > button,
+.stDownloadButton > button,
+.stFormSubmitButton > button {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  border-radius: var(--cc-radius-md) !important;
+  padding: 8px 18px !important;
+  transition: opacity 0.15s !important;
+  border: 0.5px solid var(--cc-border-mid) !important;
+  background-color: var(--cc-surface) !important;
+  color: var(--cc-purple-700) !important;
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover {
+  opacity: 0.85 !important;
+  background-color: var(--cc-purple-50) !important;
+  border-color: var(--cc-purple-200) !important;
+}
+
+/* Primary button */
+.stButton > button[kind="primary"],
+[data-testid="stBaseButton-primary"] {
+  background-color: var(--cc-purple-700) !important;
+  color: #ffffff !important;
+  border-color: var(--cc-purple-700) !important;
+}
+
+.stButton > button[kind="primary"]:hover,
+[data-testid="stBaseButton-primary"]:hover {
+  background-color: var(--cc-purple-600) !important;
+  opacity: 1 !important;
+}
+
+/* Download button */
+.stDownloadButton > button {
+  background-color: var(--cc-purple-700) !important;
+  color: #ffffff !important;
+  border-color: var(--cc-purple-700) !important;
+}
+
+/* ── Text inputs ──────────────────────────────────────────── */
+.stTextInput input,
+.stNumberInput input {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 11px !important;
+  border-radius: var(--cc-radius-sm) !important;
+  border: 0.5px solid var(--cc-border-mid) !important;
+  background-color: #FAFAF8 !important;
+  color: var(--cc-text-body) !important;
+  padding: 8px 11px !important;
+}
+
+.stTextInput input:focus,
+.stNumberInput input:focus {
+  border-color: var(--cc-purple-400) !important;
+  box-shadow: none !important;
+}
+
+.stTextInput label,
+.stNumberInput label,
+.stTextArea label,
+.stSelectbox label,
+.stSlider label,
+.stRadio label {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: var(--cc-muted) !important;
+}
+
+/* ── Textarea ─────────────────────────────────────────────── */
+.stTextArea textarea {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 13px !important;
+  border-radius: var(--cc-radius-md) !important;
+  border: 0.5px solid var(--cc-border-mid) !important;
+  background-color: #FAFAF8 !important;
+  color: var(--cc-text-body) !important;
+  line-height: 1.55 !important;
+}
+
+.stTextArea textarea:focus {
+  border-color: var(--cc-purple-400) !important;
+  box-shadow: none !important;
+}
+
+/* ── Selectbox ────────────────────────────────────────────── */
+.stSelectbox > div > div {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 13px !important;
+  border-radius: var(--cc-radius-sm) !important;
+  border: 0.5px solid var(--cc-border-mid) !important;
+  background-color: #FAFAF8 !important;
+}
+
+/* ── Radio ────────────────────────────────────────────────── */
+.stRadio > div {
+  gap: 6px !important;
+}
+
+.stRadio label {
+  font-size: 13px !important;
+  color: var(--cc-text-body) !important;
+  font-weight: 400 !important;
+}
+
+/* ── Slider ───────────────────────────────────────────────── */
+.stSlider [data-baseweb="slider"] [role="slider"] {
+  background-color: var(--cc-purple-700) !important;
+  border-color: var(--cc-purple-700) !important;
+}
+
+.stSlider [data-baseweb="slider"] [data-testid="stSliderTrackFill"] {
+  background-color: var(--cc-purple-400) !important;
+}
+
+/* ── File uploader ────────────────────────────────────────── */
+[data-testid="stFileUploader"] {
+  border: 0.5px dashed var(--cc-purple-200) !important;
+  border-radius: var(--cc-radius-md) !important;
+  background-color: var(--cc-purple-50) !important;
+  padding: 0.5rem !important;
+}
+
+[data-testid="stFileUploader"] label {
+  font-size: 13px !important;
+  color: var(--cc-muted) !important;
+}
+
+/* ── Chat messages ────────────────────────────────────────── */
+[data-testid="stChatMessage"] {
+  border-radius: var(--cc-radius-lg) !important;
+  border: 0.5px solid var(--cc-border) !important;
+  padding: 10px 14px !important;
+  font-family: var(--cc-font-sans) !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+}
+
+/* Patient (assistant) bubble */
+[data-testid="stChatMessage"][data-testid*="assistant"],
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
+  background-color: #F4F2FB !important;
+}
+
+/* Trainee (user) bubble */
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+  background-color: #E9F5EF !important;
+}
+
+/* Chat input */
+[data-testid="stChatInput"] textarea {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 13px !important;
+  border-radius: var(--cc-radius-md) !important;
+  border: 0.5px solid var(--cc-border-mid) !important;
+  background-color: #FAFAF8 !important;
+}
+
+/* ── Metrics ──────────────────────────────────────────────── */
+[data-testid="stMetric"] {
+  background-color: var(--cc-purple-50) !important;
+  border-radius: var(--cc-radius-md) !important;
+  border: 0.5px solid var(--cc-border) !important;
+  padding: 12px 14px !important;
+}
+
+[data-testid="stMetricLabel"] {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: var(--cc-muted-3) !important;
+}
+
+[data-testid="stMetricValue"] {
+  font-family: var(--cc-font-serif) !important;
+  font-size: 24px !important;
+  color: var(--cc-purple-700) !important;
+  font-weight: 400 !important;
+}
+
+/* ── Dataframe ────────────────────────────────────────────── */
+[data-testid="stDataFrame"] {
+  border-radius: var(--cc-radius-md) !important;
+  border: 0.5px solid var(--cc-border) !important;
+  overflow: hidden !important;
+  font-family: var(--cc-font-sans) !important;
+  font-size: 13px !important;
+}
+
+/* ── Alerts (info, warning, success, error) ───────────────── */
+[data-testid="stAlert"] {
+  border-radius: var(--cc-radius-md) !important;
+  font-family: var(--cc-font-sans) !important;
+  font-size: 13px !important;
+  border-width: 0.5px !important;
+}
+
+[data-testid="stAlert"][data-baseweb="notification"][kind="info"] {
+  background-color: var(--cc-purple-100) !important;
+  border-color: var(--cc-purple-200) !important;
+  color: var(--cc-purple-700) !important;
+}
+
+[data-testid="stAlert"][data-baseweb="notification"][kind="success"] {
+  background-color: var(--cc-green-100) !important;
+  border-color: #A8D5BE !important;
+  color: var(--cc-green-700) !important;
+}
+
+[data-testid="stAlert"][data-baseweb="notification"][kind="warning"] {
+  background-color: var(--cc-amber-100) !important;
+  border-color: #F5D98A !important;
+  color: var(--cc-amber-700) !important;
+}
+
+/* ── Code blocks ──────────────────────────────────────────── */
+.stCode, code {
+  font-size: 12px !important;
+  border-radius: var(--cc-radius-sm) !important;
+  background-color: var(--cc-purple-50) !important;
+  border: 0.5px solid var(--cc-border) !important;
+  color: var(--cc-purple-700) !important;
+}
+
+/* ── Expander ─────────────────────────────────────────────── */
+.streamlit-expanderHeader {
+  font-family: var(--cc-font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--cc-muted) !important;
+  border-radius: var(--cc-radius-sm) !important;
+}
+
+.streamlit-expanderContent {
+  border: 0.5px solid var(--cc-border) !important;
+  border-top: none !important;
+  border-radius: 0 0 var(--cc-radius-sm) var(--cc-radius-sm) !important;
+}
+
+/* ── Spinner ──────────────────────────────────────────────── */
+.stSpinner > div {
+  border-top-color: var(--cc-purple-700) !important;
+}
+
+/* ── Horizontal rule ──────────────────────────────────────── */
+hr {
+  border: none !important;
+  border-top: 0.5px solid var(--cc-border-soft) !important;
+  margin: 0.75rem 0 !important;
+}
+
+/* ── Password input (teacher passcode) ────────────────────── */
+[data-testid="stTextInput"][type="password"] input {
+  letter-spacing: 0.1em !important;
+}
+
+/* ── Columns gap ──────────────────────────────────────────── */
+[data-testid="column"] {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+/* ── Number input controls ────────────────────────────────── */
+.stNumberInput [data-testid="stNumberInputStepDown"],
+.stNumberInput [data-testid="stNumberInputStepUp"] {
+  border-color: var(--cc-border-mid) !important;
+  color: var(--cc-muted) !important;
+}
+
+/* =============================================================
+   Custom utility classes
+   Use in st.markdown(html, unsafe_allow_html=True) blocks
+   ============================================================= */
+
+/* Page header */
+.cc-page-header {
+  margin-bottom: 1.25rem;
+}
+
+.cc-page-title {
+  font-family: var(--cc-font-serif);
+  font-size: 22px;
+  color: var(--cc-purple-900);
+  line-height: 1.2;
+  margin: 0 0 3px 0;
+}
+
+.cc-page-sub {
+  font-size: 13px;
+  color: var(--cc-muted-2);
+  margin: 0;
+}
+
+/* Card */
+.cc-card {
+  background: var(--cc-surface);
+  border-radius: var(--cc-radius-lg);
+  border: 0.5px solid var(--cc-border);
+  padding: 18px 22px;
+  margin-bottom: 14px;
+}
+
+/* Card section title */
+.cc-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cc-muted-3);
+  margin: 0 0 10px 0;
+}
+
+/* Case tag pill */
+.cc-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--cc-amber-100);
+  color: var(--cc-amber-700);
+  margin-bottom: 8px;
+}
+
+.cc-tag.purple {
+  background: var(--cc-purple-100);
+  color: var(--cc-purple-700);
+}
+
+.cc-tag.green {
+  background: var(--cc-green-100);
+  color: var(--cc-green-700);
+}
+
+/* Case name in simulation/evaluation */
+.cc-case-name {
+  font-family: var(--cc-font-serif);
+  font-size: 20px;
+  color: var(--cc-purple-900);
+  margin: 0 0 7px 0;
+  line-height: 1.2;
+}
+
+/* Case meta text */
+.cc-case-meta {
+  font-size: 13.5px;
+  color: var(--cc-muted);
+  line-height: 1.7;
+}
+
+.cc-case-meta strong {
+  color: var(--cc-purple-700);
+  font-weight: 500;
+}
+
+/* Settings box (used in simulation settings row) */
+.cc-setting-box {
+  background: var(--cc-purple-50);
+  border-radius: var(--cc-radius-md);
+  padding: 10px 14px;
+}
+
+.cc-setting-label {
+  font-size: 11px;
+  color: var(--cc-muted-2);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* Info/success chips */
+.cc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.cc-chip.success {
+  background: var(--cc-green-100);
+  color: var(--cc-green-700);
+}
+
+.cc-chip.purple {
+  background: var(--cc-purple-100);
+  color: var(--cc-purple-700);
+}
+
+.cc-chip.amber {
+  background: var(--cc-amber-100);
+  color: var(--cc-amber-700);
+}
+
+/* Course code box */
+.cc-code-box {
+  background: var(--cc-purple-50);
+  border: 0.5px solid var(--cc-purple-200);
+  border-radius: var(--cc-radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cc-code-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cc-purple-400);
+  margin-bottom: 4px;
+}
+
+.cc-code-value {
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--cc-purple-700);
+  letter-spacing: 0.05em;
+}
+
+/* Tip / suggestion box */
+.cc-tip-box {
+  background: var(--cc-amber-100);
+  border: 0.5px solid #F5D98A;
+  border-radius: var(--cc-radius-md);
+  padding: 13px 16px;
+  margin-bottom: 14px;
+}
+
+.cc-tip-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #C08A20;
+  margin: 0 0 5px 0;
+}
+
+.cc-tip-text {
+  font-size: 13px;
+  color: #7A5A10;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Evaluation: overall score banner */
+.cc-score-banner {
+  background: var(--cc-surface);
+  border-radius: var(--cc-radius-lg);
+  border: 0.5px solid var(--cc-border);
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.cc-score-ring-wrap {
+  flex-shrink: 0;
+}
+
+.cc-score-banner-right {
+  flex: 1;
+  min-width: 200px;
+}
+
+.cc-level-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 11px;
+  border-radius: 20px;
+  background: var(--cc-purple-100);
+  color: var(--cc-purple-700);
+  letter-spacing: 0.03em;
+  margin-bottom: 7px;
+}
+
+.cc-level-pill.developing {
+  background: var(--cc-amber-100);
+  color: var(--cc-amber-700);
+}
+
+.cc-level-pill.advanced {
+  background: var(--cc-green-100);
+  color: var(--cc-green-700);
+}
+
+.cc-overall-comment {
+  font-size: 13px;
+  color: #6A6598;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Evaluation: criterion feedback block */
+.cc-criterion-block {
+  padding: 13px 0;
+  border-bottom: 0.5px solid var(--cc-border-soft);
+}
+
+.cc-criterion-block:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.cc-criterion-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 7px;
+  flex-wrap: wrap;
+}
+
+.cc-criterion-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cc-purple-900);
+  flex: 1;
+}
+
+.cc-criterion-score-pill {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cc-purple-700);
+  background: var(--cc-purple-100);
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+
+.cc-criterion-pips {
+  display: flex;
+  gap: 3px;
+}
+
+.cc-pip {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #E0DCF0;
+  border: 0.5px solid #D0CBEE;
+  display: inline-block;
+}
+
+.cc-pip.on {
+  background: var(--cc-purple-400);
+  border-color: #5B50D8;
+}
+
+.cc-criterion-explanation {
+  font-size: 12.5px;
+  color: var(--cc-muted);
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+
+.cc-criterion-suggestion {
+  font-size: 12px;
+  color: var(--cc-green-700);
+  background: #F0FAF5;
+  border-left: 2px solid #3BAF7A;
+  border-radius: 0 var(--cc-radius-sm) var(--cc-radius-sm) 0;
+  padding: 7px 10px;
+  line-height: 1.55;
+}
+
+/* Evaluation: strength / improvement list items */
+.cc-list-item {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--cc-border-soft);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--cc-text-body);
+}
+
+.cc-list-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.cc-list-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.cc-list-dot.green { background: #3BAF7A; }
+.cc-list-dot.amber { background: #E8A020; }
+
+/* Student progress table rows */
+.cc-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--cc-border-soft);
+  font-size: 13px;
+}
+
+.cc-progress-row:last-child { border-bottom: none; }
+
+.cc-progress-id {
+  font-size: 12px;
+  color: var(--cc-muted-2);
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.cc-progress-case { flex: 1; }
+
+.cc-progress-score {
+  font-weight: 500;
+  color: var(--cc-purple-700);
+}
+
+.cc-status-pill {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.cc-status-pill.done {
+  background: var(--cc-green-100);
+  color: var(--cc-green-700);
+}
+
+.cc-status-pill.pending {
+  background: var(--cc-amber-100);
+  color: var(--cc-amber-700);
+}
+
+/* Home page role cards */
+.cc-role-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.cc-role-card {
+  flex: 1;
+  min-width: 200px;
+  background: var(--cc-surface);
+  border-radius: var(--cc-radius-lg);
+  border: 0.5px solid var(--cc-border);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.cc-role-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--cc-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.cc-role-icon.teacher { background: var(--cc-purple-100); }
+.cc-role-icon.student { background: var(--cc-green-100); }
+
+.cc-role-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--cc-purple-900);
+  margin: 0;
+}
+
+.cc-role-desc {
+  font-size: 13px;
+  color: var(--cc-muted-2);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.cc-role-cta {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cc-purple-700);
+  margin: 0;
+}
+
+.cc-role-cta.student { color: var(--cc-green-700); }
+
+/* Feature chips row (home page) */
+.cc-feature-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.cc-feature-chip {
+  background: var(--cc-surface);
+  border: 0.5px solid var(--cc-border);
+  border-radius: var(--cc-radius-sm);
+  padding: 7px 13px;
+  font-size: 12px;
+  color: var(--cc-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cc-feature-chip::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cc-purple-200);
+  flex-shrink: 0;
+}
+
+/* Existing class — keep compatibility */
 .case-summary {
-  padding: 1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  background-color: #fafafa;
-}
-
-.stChatMessage {
-  border-radius: 12px !important;
-}
-
-button {
-  border-radius: 8px !important;
-  border: 1px solid #e6e6e6 !important;
+  padding: 14px 18px;
+  border: 0.5px solid var(--cc-border);
+  border-radius: var(--cc-radius-md);
+  background-color: var(--cc-purple-50);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--cc-text-body);
 }

@@ -85,8 +85,8 @@ def call_llm(
         )
         content = completion.choices[0].message.content
         return content.strip() if content else ""
-    except OpenAIError:
-        return "System not configured. Please ask the instructor to set up the AI connection."
+    except OpenAIError as e:
+        return f"API Error: {e}"
 
 
 def _mock_response(user_prompt: str) -> str:

@@ -56,6 +56,7 @@ For EACH case, return a JSON object with the following keys:
 - opening_line_for_patient: one realistic first sentence the patient might say that starts the conversation
 - scenario_summary_for_teacher: short teacher-facing summary of the case and learning focus
 - scenario_summary_for_trainee: short trainee-facing summary they will see before starting
+- persona_type: one of "cooperative", "denial", "avoidant", "angry", "not_ready" — choose the type that best fits this case's emotional framing
 
 Important quality requirements:
 - scenario_summary_for_trainee must be a rich, paragraph-length narrative (not a one-line summary)
@@ -78,6 +79,11 @@ FAMILY_CONTEXT_OPTIONS = [
 def _ensure_rich_case(case: dict[str, Any]) -> dict[str, Any]:
     family_context = case.get("family_context") or random.choice(FAMILY_CONTEXT_OPTIONS)
     case["family_context"] = family_context
+
+    # [ADDED] Default persona_type to "cooperative" if LLM didn't return one
+    valid_personas = {"cooperative", "denial", "avoidant", "angry", "not_ready"}
+    if case.get("persona_type") not in valid_personas:
+        case["persona_type"] = "cooperative"
     narrative = (case.get("scenario_summary_for_trainee") or "").strip()
     if len(narrative) < 160:
         age = case.get("age", "unknown")

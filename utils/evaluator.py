@@ -34,13 +34,42 @@ CONVERSATION TRANSCRIPT:
 {transcript_text}
 ---
 
-Rubric dimensions:
-- empathy: Does the trainee acknowledge and validate the patient's emotions?
-- clarity: Is information delivered clearly, without jargon, and at an appropriate pace?
-- structure: Does the conversation have a logical flow (setup, exploration, information sharing, planning)?
-- information_delivery: Does the trainee share key medical information honestly and sensitively?
-- shared_decision_making: Does the trainee explore patient values and preferences, and invite them into decision making?
-- managing_emotions: Does the trainee respond appropriately when emotions arise (e.g., silence, tears, anger, fear)?
+RUBRIC — score each dimension based on OBSERVABLE BEHAVIORS only.
+Anchor every score in specific moments from the transcript. Quote or reference what the trainee actually said.
+
+- empathy:
+  Does the trainee name and validate emotions explicitly? ("That sounds incredibly hard.")
+  Do they allow silence or emotional moments without rushing past them?
+  Do they use Wish/Worry/Wonder language or equivalent?
+
+- clarity:
+  Is information delivered without jargon, or is jargon explained?
+  Does the trainee check for understanding? ("Does that make sense?" / "What questions do you have?")
+  Is the pace appropriate — not overwhelming the family?
+
+- structure (SICG adherence):
+  Does the trainee SET UP before sharing information?
+  Does the trainee ASSESS UNDERSTANDING before sharing prognosis? ("What have the doctors told you so far?")
+  Does the trainee ASK PERMISSION before delivering difficult news? ("Can I share what we know with you?")
+  Is there a clear CLOSE with summary and check-in?
+
+- information_delivery:
+  Is serious news delivered honestly but sensitively?
+  Does the trainee avoid false reassurance while still conveying care?
+  Is difficult information framed with appropriate lead-in? ("I want to be honest with you about what we are seeing...")
+
+- shared_decision_making:
+  Does the trainee explore what matters most to the family? ("What are you hoping for?" / "What worries you most?")
+  Does the trainee use the Wish/Worry/Wonder framework?
+    Wish: "I wish things were different for your family..."
+    Worry: "I worry about what you might be carrying right now..."
+    Wonder: "I wonder what would feel most important to focus on..."
+  Are family values and preferences explicitly invited into the conversation?
+
+- managing_emotions:
+  When strong emotion arises (crying, anger, denial), does the trainee respond with presence before information?
+  Does the trainee avoid dismissing or minimizing? (Avoid: "I understand, but...")
+  Does the trainee match their response to the family's emotional state before continuing?
 
 Scoring:
 - 1 = Poor / rarely demonstrated
